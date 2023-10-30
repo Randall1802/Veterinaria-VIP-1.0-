@@ -1,4 +1,4 @@
-# Veterinaria (VIP 1.0)
+# Veterinaria VIP (1.0)
 Proyecto de innovación creado para la materia de Ingeniería de Software impartida en el TecNM Campus Delicias, Sexto semestre
 #
 Integrantes del equipo
