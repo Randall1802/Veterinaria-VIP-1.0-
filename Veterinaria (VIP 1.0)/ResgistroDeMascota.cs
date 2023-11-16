@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,13 +34,23 @@ namespace Veterinaria__VIP_1._0_
 
         private void btnRegistar_Click(object sender, EventArgs e)
         {
-            cn.regMas(user, txtNMascota.Text, txtRaza.Text, txtSexo.Text, txtEspecie.Text, DateTime.Parse(txtFDN.Text), txtEdad.Text);
-            MessageBox.Show("Registro exitoso");
-            InicioDeSesion formularioNuevo = new InicioDeSesion();
-            this.Hide();
-            formularioNuevo.Show();
-            formularioNuevo.FormClosed += (s, args) => this.Close();
-        }
+			string fechaTexto = txtFDN.Text;
+			DateTime fecha;
+
+			if (DateTime.TryParseExact(fechaTexto, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out fecha))
+			{
+				cn.regMas(user, txtNMascota.Text, txtRaza.Text, txtSexo.Text, txtEspecie.Text, fecha, txtEdad.Text);
+				MessageBox.Show("Registro exitoso");
+				InicioDeSesion formularioNuevo = new InicioDeSesion();
+				this.Hide();
+				formularioNuevo.Show();
+				formularioNuevo.FormClosed += (s, args) => this.Close();
+			}
+			else
+			{
+				MessageBox.Show("Formato de fecha incorrecto. Por favor, ingresa la fecha en el formato correcto (yyyy-MM-dd).");
+			}
+		}
 
         private void ResgistroDeMascota_FormClosing(object sender, FormClosingEventArgs e)
         {
